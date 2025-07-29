@@ -1,3 +1,9 @@
+/**
+ * Utility functions for various common tasks
+ * Shared across the application, client and server components
+ * Avoid adding browser-only logic/dependecies or server-only logic/dependecies here.
+ */
+
 import { type ClassValue, clsx } from "clsx";
 import { formatDistanceToNow } from "date-fns";
 import { twMerge } from "tailwind-merge";

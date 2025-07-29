@@ -1,6 +1,6 @@
+import Button from "@/ui-components/core/Button";
+import { Year } from "@/ui-components/core/Year";
 import Link from "next/link";
-import { Year } from "../../components/Year";
-import Button from "../../components/ui/Button";
 // import Button from "../components/ui/Button";
 
 const HomePage = () => {

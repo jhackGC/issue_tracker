@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Year } from "../Year";
+import { Year } from "../core/Year";
 
 export default function Footer() {
   return (

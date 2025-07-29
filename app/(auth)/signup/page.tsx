@@ -2,19 +2,19 @@
 // we are using client components to render the signup page as we are going to use hooks in it
 // and form / interaction.
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useActionState } from "react";
-import toast from "react-hot-toast";
-import { ActionResponse, signUp } from "../../../actions/auth";
-import Button from "../../../components/ui/Button";
+import Button from "@/ui-components/core/Button";
 import {
   Form,
   FormError,
   FormGroup,
   FormInput,
   FormLabel,
-} from "../../../components/ui/Form";
+} from "@/ui-components/core/Form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState } from "react";
+import toast from "react-hot-toast";
+import { ActionResponse, signUp } from "../../../actions/auth";
 
 const intialState: ActionResponse = {
   success: false,

@@ -1,6 +1,6 @@
+import Footer from "@/ui-components/sections/Footer";
+import Header from "@/ui-components/sections/Header";
 import { Metadata } from "next";
-import Footer from "../../components/sections/Footer";
-import Header from "../../components/sections/Header";
 
 export const metadata: Metadata = {
   title: "Mode App",

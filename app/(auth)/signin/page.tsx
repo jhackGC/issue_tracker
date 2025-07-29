@@ -1,18 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useActionState } from "react";
-import toast from "react-hot-toast";
-import { ActionResponse, signIn } from "../../../actions/auth";
-import Button from "../../../components/ui/Button";
+import Button from "@/ui-components/core/Button";
 import {
   Form,
   FormError,
   FormGroup,
   FormInput,
   FormLabel,
-} from "../../../components/ui/Form";
+} from "@/ui-components/core/Form";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useActionState } from "react";
+import toast from "react-hot-toast";
+import { ActionResponse, signIn } from "../../../server/actions/auth";
 
 const initialState: ActionResponse = {
   success: false,

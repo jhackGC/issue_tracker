@@ -1,4 +1,7 @@
 // This file is a client component, so it should start with "use client"
+// we want this to run on the client side as it uses useLayoutEffect
+// to get the current year and display it.
+// This component will be hydrated on the client side after the parent rendered on the server side.
 "use client";
 
 import { useLayoutEffect, useState } from "react";
