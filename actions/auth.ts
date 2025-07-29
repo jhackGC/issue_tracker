@@ -15,8 +15,8 @@ import {
   createUser,
   deleteSession,
   verifyPassword,
-} from "../lib/auth";
-import { getUserByEmail } from "../lib/dataAccessLayer";
+} from "../server/lib/auth";
+import { getUserByEmail } from "../server/lib/dataAccessLayer";
 
 // Define Zod schema for signin validation
 const SignInSchema = z.object({

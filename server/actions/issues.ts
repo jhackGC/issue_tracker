@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { mockDelay } from "../../lib/utils";
 import { db } from "../db";
-import { issues } from "../db/schema";
+import { issuesSchema } from "../db/schema";
 import { getCurrentUser } from "../lib/dataAccessLayer";
 // Define Zod schema for issue validation
 const IssueSchema = z.object({
@@ -62,7 +62,7 @@ export const createIssue = async (data: IssueData) => {
 
     // Create issue with validated data
     const validatedData = validationResult.data;
-    await db.insert(issues).values({
+    await db.insert(issuesSchema).values({
       title: validatedData.title,
       description: validatedData.description || null,
       status: validatedData.status,
@@ -118,7 +118,10 @@ export const updateIssue = async (id: number, data: Partial<IssueData>) => {
       updateData.priority = validatedData.priority;
 
     // Update issue
-    await db.update(issues).set(updateData).where(eq(issues.id, id));
+    await db
+      .update(issuesSchema)
+      .set(updateData)
+      .where(eq(issuesSchema.id, id));
 
     return { success: true, message: "Issue updated successfully" };
   } catch (e) {
@@ -141,7 +144,7 @@ export async function deleteIssue(id: number) {
     }
 
     // Delete issue
-    await db.delete(issues).where(eq(issues.id, id));
+    await db.delete(issuesSchema).where(eq(issuesSchema.id, id));
 
     return { success: true, message: "Issue deleted successfully" };
   } catch (error) {
