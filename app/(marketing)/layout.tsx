@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import { Year } from "../../components/Year";
+import Button from "../../components/ui/Button";
 // import Button from "../components/ui/Button";
 
 export const metadata: Metadata = {
@@ -41,9 +42,11 @@ const MarketingLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex items-center gap-4">
             <div className="flex items-center space-x-4">
               <Link href="/signin">
-                {/* <Button variant="outline">Sign in</Button> */}
+                <Button variant="outline">Sign in</Button>
               </Link>
-              <Link href="/signup">{/* <Button>Sign up</Button> */}</Link>
+              <Link href="/signup">
+                <Button>Sign up</Button>
+              </Link>
             </div>
           </div>
         </div>
