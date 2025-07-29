@@ -14,7 +14,7 @@ import {
   deleteSession,
   verifyPassword,
 } from "@/lib/auth";
-import { getUserByEmail } from "@/lib/dal";
+import { getUserByEmail } from "@/lib/dataAccessLayer";
 import { redirect } from "next/navigation";
 import { z, ZodIssue } from "zod";
 
@@ -127,7 +127,7 @@ export const signUp = async (formData: FormData) => {
     if (!validationResult.success) {
       return {
         success: false,
-        message: "Validation failed",
+        message: "Validation failed in the server side",
         errors: validationResult.error.issues.reduce(
           (acc: Record<string, string[]>, curr: ZodIssue) => {
             const path = curr.path[0];

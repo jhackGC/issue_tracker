@@ -35,6 +35,10 @@ export async function verifyPassword(password: string, hashedPassword: string) {
 
 // Create a new user
 export async function createUser(email: string, password: string) {
+  console.log("Creating user:", email);
+  if (!email || !password) {
+    throw new Error("Email and password are required");
+  }
   const hashedPassword = await hashPassword(password);
   const id = nanoid();
 

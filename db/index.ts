@@ -4,6 +4,12 @@ import { drizzle as drizzlePostgres } from "drizzle-orm/node-postgres";
 
 import * as schema from "./schema";
 
+console.log("### Connecting to database...");
+// env
+console.log("### process.env.VERCEL: ", process.env.VERCEL);
+
+console.log("### DATABASE_URL:", process.env.DATABASE_URL);
+
 export const db = process.env.VERCEL
   ? drizzleNeon({
       client: neon(process.env.DATABASE_URL!),
