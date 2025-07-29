@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Year } from "../../components/Year";
+import Button from "../../components/ui/Button";
 // import Button from "../components/ui/Button";
 
 const HomePage = () => {
@@ -19,8 +20,8 @@ const HomePage = () => {
               your projects with ease.
             </p>
             <div className="mt-10">
-              <Link href="/signup">
-                {/* <Button size="lg">Get Started</Button> */}
+              <Link href="/signUp">
+                <Button size="lg">Get Started</Button>
               </Link>
             </div>
           </div>

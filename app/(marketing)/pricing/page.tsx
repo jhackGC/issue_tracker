@@ -29,7 +29,7 @@ export default function PricingPage() {
             { name: "Advanced integrations", included: false },
           ]}
           buttonText="Sign Up Free"
-          buttonLink="/auth/signup"
+          buttonLink="/auth/signUp"
         />
 
         {/* Pro Plan */}

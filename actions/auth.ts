@@ -47,6 +47,8 @@ export type ActionResponse = {
 };
 
 export const signIn = async (formData: FormData): Promise<ActionResponse> => {
+  console.log("### Sign user by email:", formData.get("email"));
+
   try {
     const data = {
       email: formData.get("email") as string,
@@ -59,22 +61,13 @@ export const signIn = async (formData: FormData): Promise<ActionResponse> => {
       return {
         success: false,
         message: "Validation failed",
-        errors: validationResult.error.issues.reduce(
-          (acc: Record<string, string[]>, curr: ZodIssue) => {
-            const path = curr.path[0];
-            if (typeof path === "string" || typeof path === "number") {
-              const key = String(path);
-              if (!acc[key]) acc[key] = [];
-              acc[key].push(curr.message);
-            }
-            return acc;
-          },
-          {}
-        ),
+        errors: extractValidationIssues(validationResult),
       };
     }
 
     const user = await getUserByEmail(data.email);
+
+    // console.log("### signIn User found:", user);
 
     if (!user) {
       return {
@@ -128,18 +121,7 @@ export const signUp = async (formData: FormData) => {
       return {
         success: false,
         message: "Validation failed in the server side",
-        errors: validationResult.error.issues.reduce(
-          (acc: Record<string, string[]>, curr: ZodIssue) => {
-            const path = curr.path[0];
-            if (typeof path === "string" || typeof path === "number") {
-              const key = String(path);
-              if (!acc[key]) acc[key] = [];
-              acc[key].push(curr.message);
-            }
-            return acc;
-          },
-          {}
-        ),
+        errors: extractValidationIssues(validationResult),
       };
     }
 
@@ -203,3 +185,20 @@ export const signOut = async () => {
     redirect("/signin");
   }
 };
+
+function extractValidationIssues(
+  validationResult: z.ZodSafeParseError<{ email: string; password: string }>
+): Record<string, string[]> | undefined {
+  return validationResult.error.issues.reduce(
+    (acc: Record<string, string[]>, curr: ZodIssue) => {
+      const path = curr.path[0];
+      if (typeof path === "string" || typeof path === "number") {
+        const key = String(path);
+        if (!acc[key]) acc[key] = [];
+        acc[key].push(curr.message);
+      }
+      return acc;
+    },
+    {}
+  );
+}

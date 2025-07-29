@@ -37,11 +37,13 @@ export const getCurrentUser = async () => {
 
 export const getUserByEmail = async (email: string) => {
   try {
+    console.log("### Get user by email:", email);
     const user = await db.query.users.findFirst({
       where: eq(users.email, email),
     });
 
-    return user;
+    console.log("### User found:", !!user);
+    return user || null;
   } catch (e) {
     console.error(e);
     return null;

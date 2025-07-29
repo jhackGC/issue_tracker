@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import Footer from "../../components/sections/Footer";
+import Header from "../../components/sections/Header";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -7,9 +9,10 @@ export const metadata: Metadata = {
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <h1>Dashboard Layout</h1>
-      {children}
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main className="flex-1">{children}</main>
+      <Footer />
     </div>
   );
 };
