@@ -1,4 +1,9 @@
-const DashboardPage = () => {
+import { getIssues } from "../../server/lib/dataAccessLayer";
+
+const DashboardPage = async () => {
+  const issues = await getIssues();
+
+  console.log("### Issues:", issues);
   return <div>Dashboard Page</div>;
 };
 export default DashboardPage;

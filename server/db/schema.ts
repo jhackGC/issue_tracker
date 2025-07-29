@@ -11,7 +11,7 @@ export const statusEnum = pgEnum("status", [
 export const priorityEnum = pgEnum("priority", ["low", "medium", "high"]);
 
 // Issues table
-export const issues = pgTable("issues", {
+export const issuesSchema = pgTable("issues", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
   description: text("description"),
@@ -23,7 +23,7 @@ export const issues = pgTable("issues", {
 });
 
 // Users table
-export const users = pgTable("users", {
+export const usersSchema = pgTable("users", {
   id: text("id").primaryKey(),
   email: text("email").notNull().unique(),
   password: text("password").notNull(),
@@ -31,20 +31,20 @@ export const users = pgTable("users", {
 });
 
 // Relations between tables
-export const issuesRelations = relations(issues, ({ one }) => ({
-  user: one(users, {
-    fields: [issues.userId],
-    references: [users.id],
+export const issuesRelations = relations(issuesSchema, ({ one }) => ({
+  user: one(usersSchema, {
+    fields: [issuesSchema.userId],
+    references: [usersSchema.id],
   }),
 }));
 
-export const usersRelations = relations(users, ({ many }) => ({
-  issues: many(issues),
+export const usersRelations = relations(usersSchema, ({ many }) => ({
+  issues: many(issuesSchema),
 }));
 
 // Types
-export type Issue = InferSelectModel<typeof issues>;
-export type User = InferSelectModel<typeof users>;
+export type Issue = InferSelectModel<typeof issuesSchema>;
+export type User = InferSelectModel<typeof usersSchema>;
 
 // Status and priority labels for display
 export const ISSUE_STATUS = {

@@ -6,11 +6,11 @@
 
 // This file will inherit, thanks to NextJS, the context of the server,
 // because its been called from a server component (action, route, etc. )so you can access headers, request, cookies , etc.
-import { db } from "@/db";
-import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
+import { mockDelay } from "../../lib/utils";
+import { db } from "../db";
+import { usersSchema } from "../db/schema";
 import { getSession } from "./auth";
-import { mockDelay } from "./utils";
 
 export const getCurrentUser = async () => {
   await mockDelay(1000); // Simulate a delay for demonstration purposes
@@ -25,8 +25,8 @@ export const getCurrentUser = async () => {
   try {
     const results = await db
       .select()
-      .from(users)
-      .where(eq(users.id, session.userId));
+      .from(usersSchema)
+      .where(eq(usersSchema.id, session.userId));
 
     return results[0] || null;
   } catch (e) {
@@ -38,8 +38,8 @@ export const getCurrentUser = async () => {
 export const getUserByEmail = async (email: string) => {
   try {
     console.log("### Get user by email:", email);
-    const user = await db.query.users.findFirst({
-      where: eq(users.email, email),
+    const user = await db.query.usersSchema.findFirst({
+      where: eq(usersSchema.email, email),
     });
 
     console.log("### User found:", !!user);
@@ -53,11 +53,16 @@ export const getUserByEmail = async (email: string) => {
 export async function getIssues() {
   try {
     await mockDelay(1000); // Simulate a delay for demonstration purposes
-    const result = await db.query.issues.findMany({
+    const user = await getCurrentUser();
+    if (!user) {
+      throw new Error("Unauthorized");
+    }
+    const result = await db.query.issuesSchema.findMany({
       with: {
         user: true,
       },
-      orderBy: (issues, { desc }) => [desc(issues.createdAt)],
+      where: (issuesSchema, { eq }) => eq(issuesSchema.userId, user.id),
+      orderBy: (issuesSchema, { desc }) => [desc(issuesSchema.createdAt)],
     });
     return result;
   } catch (error) {

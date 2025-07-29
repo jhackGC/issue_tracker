@@ -1,10 +1,10 @@
-import { db } from "@/db";
-import { users } from "@/db/schema";
 import { compare, hash } from "bcrypt";
 import * as jose from "jose";
 import { nanoid } from "nanoid";
 import { cookies } from "next/headers";
 import { cache } from "react";
+import { db } from "../db";
+import { usersSchema } from "../db/schema";
 
 // JWT types
 interface JWTPayload {
@@ -42,7 +42,7 @@ export async function createUser(email: string, password: string) {
   const id = nanoid();
 
   try {
-    await db.insert(users).values({
+    await db.insert(usersSchema).values({
       id,
       email,
       password: hashedPassword,
